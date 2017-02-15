@@ -27,11 +27,11 @@ GA:: ~GA()
 }
 
 
-GA::Agent::Agent(int& b, int f, ann* br)
+GA::Agent::Agent(int& b, int f, vector<int>& s, bool r, long double ld)
     :
         born(b),
         fitness(f),
-        brain(br)
+        brain(s, r, ld)
 {
 
 }
@@ -57,8 +57,8 @@ void GA:: populate()
             brains.push_back(
                     new Agent(
                         gen,
-                        cur_pop,
-                        new ann{nodes_per_layer, /*yes random*/ true, .01}
+                        0,
+                        nodes_per_layer, /*yes random*/ true, .01
                     ));
             cout << cur_pop << endl;
         }
@@ -75,6 +75,7 @@ void GA:: kill_off()
     {
         delete brains[cur_pop-1];
         brains.erase(brains.end()-1);
+        cout << brains.back()->fitness << endl;
     }
 }
 

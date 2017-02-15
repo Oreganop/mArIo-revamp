@@ -15,10 +15,10 @@ class GA
             public:
                 int born;
                 int fitness;
-                ann* brain;
+                ann brain;
 
-                Agent(int&, int, ann*);
-                ~Agent(){delete brain;cout<< "d A\n";};
+                Agent(int&, int, vector<int>&, bool, long double);
+                ~Agent(){/*cout<< "d A\n";*/};
         };
 
 

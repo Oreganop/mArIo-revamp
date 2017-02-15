@@ -36,13 +36,13 @@ ann::ann(const vector<int>& structure, const bool& as_random, const long double 
         // Push output layer nodes, which don't get pushed anywhere else.
         graph[graph.size()-1][j].push_back(Node{0,0,0,0,a});  
     }
-    cout << "ALIVE";
+    //cout << "ALIVE";
 }
 
 //ann Destructor: Nothing to really say here.
 ann::~ann()
 {
-    cout << "ouch!\n";
+    //cout << "ouch!\n";
 }
 
 void ann::printWeights(int precision)
