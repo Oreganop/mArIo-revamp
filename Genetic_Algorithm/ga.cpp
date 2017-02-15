@@ -1,16 +1,34 @@
 #include"ga.h"
 
-GA::GA(const int& pop, const int& p_pop, const vector<int>& n_p_l)
+GA::GA(const int& pop, const int& p_pop, const vector<int>& n_p_l, const string& name_file)
     :
         gen(0),
         max_pop(pop),
         cur_pop(0),
+        agent_counter(0),
         num_parents(p_pop),
         nodes_per_layer(n_p_l),
         brains()
 {
     srand(time(NULL));
     srand48(time(NULL));
+
+    fstream in(name_file, fstream::in);
+    if (in.is_open() ){
+        string name;
+        for (int i=0; getline(in, name); i++)
+        {
+            if(i<28)
+                names_l.push_back(name);
+            else
+                names_f.push_back(name);
+        }
+        use_names=true;
+    }
+    else {
+        use_names=false;
+    }
+    
 }
 
 GA::GA(const string& save_file) // Load from a save-file
@@ -27,11 +45,13 @@ GA:: ~GA()
 }
 
 
-GA::Agent::Agent(int& b, int f, vector<int>& s, bool r, long double ld)
+GA::Agent::Agent(int& b, int f, string fn, string ln, vector<int>& s, bool r, long double a)
     :
         born(b),
         fitness(f),
-        brain(s, r, ld)
+        name_f(fn),
+        name_l(ln),
+        brain(s, r, a)
 {
 
 }
@@ -58,9 +78,17 @@ void GA:: populate()
                     new Agent(
                         gen,
                         0,
+                        ((use_names) ? names_f.front() : string("Agent#")),
+                        ((use_names) ? names_l.front() : string(to_string(agent_counter))),
                         nodes_per_layer, /*yes random*/ true, .01
                     ));
-            cout << cur_pop << endl;
+            if(use_names)
+            {
+                names_f.pop_front();
+                names_l.pop_front();
+            }
+            cout << agent_counter << endl;
+            agent_counter++;
         }
         return;
     }
@@ -75,7 +103,7 @@ void GA:: kill_off()
     {
         delete brains[cur_pop-1];
         brains.erase(brains.end()-1);
-        cout << brains.back()->fitness << endl;
+        cout << brains.back()->get_name() << endl;
     }
 }
 
