@@ -35,4 +35,5 @@ int main(int argc, char** argv)
         cout << nodes_per_layer.back() << endl;
     }
     GA genetics(num_children+num_parents, num_parents, nodes_per_layer);
+    genetics.run();
 }

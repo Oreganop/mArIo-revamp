@@ -8,7 +8,7 @@
 #include<vector>
 #include<iostream>
 #include<iomanip>      // std::setprecision
-#
+
 using namespace std;
 
 class ann
@@ -33,20 +33,21 @@ class ann
                                 -> Node[ Identify j ]   *(ie. TO which node. j FROM i)
           
         */
-        const long double alpha;
+         long double alpha;
 
         // helpful functions
         int sometimes_negative();
         long double random_weight();
 
     public:
-        ann(const string&, const string&, const long double);
-        ann(const vector<int>& structure, const bool& as_random, const long double alpha);
+        ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
         ~ann();
 
+        // With Test Files
+        ann(const string&, const string&, const long double);
         void backprop(const string& train_inf, const string& train_outf, const int k);
         void classify(const string& classify_inf, const string& classify_outf);
-        void printOneInputWeights();
+        void printWeights(int precision);
 
 };
 #endif

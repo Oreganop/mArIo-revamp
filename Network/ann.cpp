@@ -5,6 +5,81 @@
 #include"ann.h"
 using namespace std;
 
+
+ann::ann(const vector<int>& structure, const bool& as_random, const long double &a)
+    : 
+        nodes_per_layer(structure),
+        alpha(a)
+{
+    for(unsigned int i=0; i < structure.size(); i++)
+    {
+        int num_nodes = structure[i];
+
+        graph.push_back(vector< vector<Node> >());
+
+
+        for( int y=0; y<num_nodes;y++)
+        {
+            graph[graph.size()-1].push_back(vector<Node>()); // Pushback y'th vector
+            if(i != structure.size()-1){
+                for( int j=0; j< nodes_per_layer[i+1]; j++)
+                {
+                    long double weight = (as_random) ? random_weight()/(long double)2 : 0;
+                    graph[ /*x*/ i ][ y ].push_back( Node{ weight, 0, 0, 0, a});
+                }
+            }
+        }
+    }
+
+    for( int j=0; j<nodes_per_layer.back(); j++)
+    {
+        // Push output layer nodes, which don't get pushed anywhere else.
+        graph[graph.size()-1][j].push_back(Node{0,0,0,0,a});  
+    }
+    cout << "ALIVE";
+}
+
+//ann Destructor: Nothing to really say here.
+ann::~ann()
+{
+    cout << "ouch!\n";
+}
+
+void ann::printWeights(int precision)
+{
+    for(unsigned int layer=0; layer < nodes_per_layer.size()-1; layer++)
+    {
+        cout << "Layer "<<layer << ": ";
+        for(int i=0; i< nodes_per_layer[layer]; i++)
+        {
+            for( int j=0; j< nodes_per_layer[layer+1]; j++)
+            {
+                cout << showpoint << fixed << setprecision(precision) << graph[layer][i][j].weight << " ";
+            }
+            cout << endl << "\t\t ";
+        }
+        cout << endl ;
+        if(layer < nodes_per_layer.size()-2)
+            cout << "\t";
+    }
+}
+
+int ann:: sometimes_negative()
+{
+    return (rand()%2 == 0)?-1:1;
+}
+
+long double ann:: random_weight()
+{
+    return drand48() * (long double) sometimes_negative();
+}
+
+
+/* ********************** *
+ * TEST-FUNCTION VARIANTS * 
+ * ********************** */
+
+
 ann::ann(const string& struct_file, const string& weight_file, const long double a)
     : alpha(a)
 {
@@ -56,37 +131,7 @@ ann::ann(const string& struct_file, const string& weight_file, const long double
     weightf.close();
 }
 
-ann::ann(const vector<int>& structure, const bool& as_random, const long double a)
-    : 
-        nodes_per_layer(structure),
-        alpha(a)
-{
-    for(int i=0; i < structure.size(); i++)
-    {
-        int num_nodes = structure[i];
 
-        graph.push_back(vector< vector<Node> >());
-        for( int y=0; y<num_nodes;y++)
-        {
-            long double weight = (as_random) ? random_weight() : 0;
-
-            graph[graph.size()-1].push_back(vector<Node>()); // Pushback y'th vector
-
-            graph[ /*x*/ graph.size()-1 ][ y ].push_back( Node{ weight, 0, 0, 0, a});
-        }
-    }
-
-    for( int j=0; j<nodes_per_layer.back(); j++)
-    {
-        // Push output layer nodes, which don't get pushed anywhere else.
-        graph[graph.size()-1][j].push_back(Node{0,0,0,0,a});  
-    }
-}
-
-//ann Destructor: Nothing to really say here.
-ann::~ann()
-{
-}
 
 void ann::backprop(const string& train_inf, const string& train_outf, const int k)
 {
@@ -228,9 +273,9 @@ void ann::classify(const string& classify_inf, const string& classify_outf)
             }
         }
         //Time to do Euclidian distance on output a-values
-        long double cumulate[graph.size()]; 
+        long double* cumulate= new long double[graph.size()]; 
         long double smallest = 1000000000000; // Initialized as a large number
-        int small_i;
+        int small_i= -1;
         for(int i=0; i<nodes_per_layer[graph.size()-1]; i++)
         {
             cumulate[i] = 0;
@@ -248,28 +293,10 @@ void ann::classify(const string& classify_inf, const string& classify_outf)
         if ( atoi(expect.c_str()) == small_i)
             correctly_classified++;
         cout << small_i << endl;
+        delete [] cumulate;
     }
     long double accuracy = (long double) correctly_classified/total;
     cout << showpoint << fixed << setprecision(12) << accuracy << endl;
     inf.close();
     outf.close();
-}
-
-void ann::printOneInputWeights()
-{
-    for(int i=0; i< nodes_per_layer[1]; i++)
-    {
-        cout << showpoint << fixed << setprecision(12) << graph[0][0][i].weight << " ";
-    }
-    cout << endl;
-}
-
-int ann:: sometimes_negative()
-{
-    return (rand()%2 == 0)?-1:1;
-}
-
-long double ann:: random_weight()
-{
-    return drand48() * (long double) sometimes_negative();
 }
