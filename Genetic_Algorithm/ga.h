@@ -24,7 +24,7 @@ class GA
                 Agent(int&, int, string fn, string ln, vector<int>&, bool, long double);
                 ~Agent(){/*cout<< "d A\n";*/};
 
-                string get_name() {return name_f+name_l;};
+                string get_name() {return  "["+name_f+ " " +name_l+"]";};
         };
 
 
@@ -50,6 +50,9 @@ class GA
         void populate();
         void evaluate();
         void kill_off();
+
+        //Functions
+        void printBrains();
 
         void save();
         void load();

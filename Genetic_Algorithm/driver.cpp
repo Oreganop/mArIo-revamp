@@ -21,7 +21,7 @@ int main(int argc, char** argv)
             cerr << "\t-num_parents -- Number of Agents kept after a generation ends.\n";
             cerr << "\t-num_children -- Number of Agents to spawn in each new generation.\n";
 
-            cerr << "\t-name_file -- Name file for Agents. 'c' to use counts";
+            cerr << "\t-name_file -- Name file for Agents. 'c' to use counts\n";
 
             cerr << "\t-num_inputs -- Number of nodes in the input layer.\n";
             cerr << "\t-<...> -- As many numbers for number of nodes in hidden layer(s).\n";

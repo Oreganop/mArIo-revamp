@@ -65,11 +65,16 @@ void GA:: run()
         kill_off();
 
         gen++;
+
+
+        cout << "The parents of Generation <" << gen << "> are:"; 
+        printBrains();
     }
 }
 
 void GA:: populate()
 {
+    cout << endl;
     if( gen == 0 )
     {
         for(; cur_pop<max_pop; cur_pop++)
@@ -77,7 +82,7 @@ void GA:: populate()
             brains.push_back(
                     new Agent(
                         gen,
-                        0,
+                        agent_counter,
                         ((use_names) ? names_f.front() : string("Agent#")),
                         ((use_names) ? names_l.front() : string(to_string(agent_counter))),
                         nodes_per_layer, /*yes random*/ true, .01
@@ -101,9 +106,19 @@ void GA:: kill_off()
     sort(brains.begin(), brains.end(), comp);
     for(;cur_pop>num_parents; cur_pop--)
     {
+        cout << brains.back()->get_name() << endl;
         delete brains[cur_pop-1];
         brains.erase(brains.end()-1);
-        cout << brains.back()->get_name() << endl;
+    }
+
+}
+
+void GA:: printBrains()
+{
+    cout << endl;
+    for (unsigned int i=0; i<brains.size(); i++)
+    {
+        cout << "\t" << brains[i]->get_name() << " has a fitness of " <<  brains[i]->fitness << endl;
     }
 }
 

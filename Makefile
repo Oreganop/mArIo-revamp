@@ -2,7 +2,7 @@
 
 CXX=g++
 CXX_FLAGS=-std=gnu++11 -Wall -pedantic -g -O2
-LIBS=-lsfml-graphics -lsfml-window -lsfml-system
+LIBS=#-lsfml-graphics -lsfml-window -lsfml-system
 
 #Executable name
 EXEC=genetics
