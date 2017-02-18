@@ -9,25 +9,30 @@ using namespace std;
 
 
 
+class Agent{
+    private:
+        int born;
+        int fitness;
+        string name_f;
+        string name_l;
+    protected:
+        ann brain;
+    public:
+        Agent(int& date_born, string first, string last, vector<int>& structure, bool rand, long double a);
+        Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy);
+
+        ~Agent(){/*cout<< "d A\n";*/};
+
+        string get_name() {return  "["+name_f+ " " +name_l+"]";};
+
+        friend bool comp(Agent* i, Agent* j);
+        friend class GA;
+};
+
+
 class GA
 {
     private:
-        class Agent{
-            public:
-                int born;
-                int fitness;
-                string name_f;
-                string name_l;
-
-                ann brain;
-
-                Agent(int&, int, string fn, string ln, vector<int>&, bool, long double);
-                ~Agent(){/*cout<< "d A\n";*/};
-
-                string get_name() {return  "["+name_f+ " " +name_l+"]";};
-        };
-
-
         int gen;
         const int max_pop;
         int cur_pop;
@@ -56,7 +61,7 @@ class GA
 
         void save();
         void load();
-        friend bool comp(Agent* i, Agent* j);
+
 
 
     public:
@@ -65,5 +70,5 @@ class GA
         ~GA();
         void run();
 };
-bool comp(GA::Agent* i, GA::Agent* j);
+bool comp(Agent* i, Agent* j);
 #endif

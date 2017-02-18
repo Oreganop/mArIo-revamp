@@ -45,15 +45,27 @@ GA:: ~GA()
 }
 
 
-GA::Agent::Agent(int& b, int f, string fn, string ln, vector<int>& s, bool r, long double a)
+Agent::Agent(int& b, string fn, string ln, vector<int>& s, bool r, long double a)
     :
         born(b),
-        fitness(f),
+        fitness(0),
         name_f(fn),
         name_l(ln),
         brain(s, r, a)
 {
+}
 
+Agent::Agent(int& d, string fn, string ln, Agent& mommy, Agent& daddy)
+    : 
+        born(d),
+        fitness(0),
+        name_f(fn),
+        name_l(ln),
+{
+    for(unsigned int layer = 0; layer < mommy.nodes_per_layer.size(); layer++)
+    {
+        int splice_point = random() % mommy.nodes_per_layer[layer];
+    }
 }
 
 void GA:: run()
@@ -122,7 +134,7 @@ void GA:: printBrains()
     }
 }
 
-bool comp(GA::Agent* i, GA::Agent* j)
+bool comp(Agent* i, Agent* j)
 { 
     return i->fitness > j->fitness; 
 }

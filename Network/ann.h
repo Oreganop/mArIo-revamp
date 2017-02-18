@@ -14,6 +14,7 @@ using namespace std;
 class ann
 {
     private:
+        friend class Agent;
         struct Node{
             long double weight; //Weight to next node. Output nodes weights will be unset.
             long double a;
@@ -40,6 +41,7 @@ class ann
         long double random_weight();
 
     public:
+        ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
         ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
         ~ann();
 
