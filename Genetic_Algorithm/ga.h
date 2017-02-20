@@ -12,11 +12,12 @@ using namespace std;
 class Agent{
     private:
         int born;
+        //int agent_num; // TODO maybe? -- Garrett
         int fitness;
         string name_f;
         string name_l;
     protected:
-        ann brain;
+        ann brain();
     public:
         Agent(int& date_born, string first, string last, vector<int>& structure, bool rand, long double a);
         Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy);

@@ -42,7 +42,7 @@ class ann
 
     public:
         ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
-        ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
+        ann() {};
         ~ann();
 
         // With Test Files

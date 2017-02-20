@@ -11,7 +11,7 @@ ann::ann(const vector<int>& structure, const bool& as_random, const long double 
         nodes_per_layer(structure),
         alpha(a)
 {
-    if(as_random)
+    //if(as_random)
     for(unsigned int i=0; i < structure.size(); i++)
     {
         int num_nodes = structure[i];

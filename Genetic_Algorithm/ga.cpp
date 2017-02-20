@@ -60,11 +60,14 @@ Agent::Agent(int& d, string fn, string ln, Agent& mommy, Agent& daddy)
         born(d),
         fitness(0),
         name_f(fn),
-        name_l(ln),
+        name_l(ln)
+        // brain() is done in a "sexier" way below
 {
-    for(unsigned int layer = 0; layer < mommy.nodes_per_layer.size(); layer++)
+
+
+    for(unsigned int layer = 0; layer < mommy.brain.nodes_per_layer.size(); layer++)
     {
-        int splice_point = random() % mommy.nodes_per_layer[layer];
+        int splice_point = random() % mommy.brain.nodes_per_layer[layer];
     }
 }
 
@@ -94,7 +97,7 @@ void GA:: populate()
             brains.push_back(
                     new Agent(
                         gen,
-                        agent_counter,
+                        //agent_counter, TODO maybe? -- Garrett
                         ((use_names) ? names_f.front() : string("Agent#")),
                         ((use_names) ? names_l.front() : string(to_string(agent_counter))),
                         nodes_per_layer, /*yes random*/ true, .01
