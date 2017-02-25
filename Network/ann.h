@@ -24,7 +24,7 @@ class ann
         };
         vector<int>nodes_per_layer;
         // nodes_per_layer ends up defining the number of nodes in a given layer (wow, amirite)
-
+        
         vector<vector<vector<Node>>> graph;
         /* 
            Vector[ Identify Layer]  *(ie. input, hidden1, hidden2... hiddenN, output)
@@ -41,7 +41,7 @@ class ann
         long double random_weight();
 
     public:
-        ann(const vector<int>& structure, const bool& as_random, const long double& alpha);
+        ann(const vector<int>& structure, const vector<long double>* weights, const long double& alpha);
         ann() {};
         ~ann();
 

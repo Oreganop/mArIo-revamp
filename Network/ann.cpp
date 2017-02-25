@@ -6,39 +6,51 @@
 using namespace std;
 
 
-ann::ann(const vector<int>& structure, const bool& as_random, const long double &a)
+ann::ann(const vector<int>& structure, const vector<long double>* weights, const long double &a)
     : 
         nodes_per_layer(structure),
         alpha(a)
 {
-    //if(as_random)
-    for(unsigned int i=0; i < structure.size(); i++)
+    if(weights == NULL)
     {
-        int num_nodes = structure[i];
-
-        graph.push_back(vector< vector<Node> >());
-
-
-        for( int y=0; y<num_nodes;y++)
+        for(unsigned int i=0; i < structure.size(); i++)
         {
-            graph[graph.size()-1].push_back(vector<Node>()); // Pushback y'th vector
-            if(i != structure.size()-1){
-                for( int j=0; j< nodes_per_layer[i+1]; j++)
-                {
-                    long double weight = random_weight()/(long double)2;
-                    graph[ /*x*/ i ][ y ].push_back( Node{ weight, 0, 0, 0, a});
+            int num_nodes = structure[i];
+
+            graph.push_back(vector< vector<Node> >());
+
+
+            for( int y=0; y<num_nodes;y++)
+            {
+                graph[graph.size()-1].push_back(vector<Node>()); // Pushback y'th vector
+                if(i != structure.size()-1){
+                    for( int j=0; j< nodes_per_layer[i+1]; j++)
+                    {
+                        long double weight = random_weight()/(long double)2;
+                        graph[ /*x*/ i ][ y ].push_back( Node{ weight, 0, 0, 0, a});
+                    }
                 }
             }
         }
-    }
 
-    for( int j=0; j<nodes_per_layer.back(); j++)
-    {
-        // Push output layer nodes, which don't get pushed anywhere else.
-        graph[graph.size()-1][j].push_back(Node{0,0,0,0,a});  
+        for( int j=0; j<nodes_per_layer.back(); j++)
+        {
+            // Push output layer nodes, which don't get pushed anywhere else.
+            graph[graph.size()-1][j].push_back(Node{0,0,0,0,a});  
+        }
     }
-    //cout << "ALIVE";
+    else{
+    }
 }
+
+
+
+ann::ann( vector<vector<vector<Node>>>& mommy, vector<vector<vector<Node>>>& daddy, vector<int>n_p_r)
+    :nodes_per_layer(n_p_r),
+{
+}
+
+
 
 //ann Destructor: Nothing to really say here.
 ann::~ann()
