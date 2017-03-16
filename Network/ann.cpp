@@ -47,12 +47,10 @@ ann::ann(const vector<int>& structure, const vector<long double>* weights, const
 
 ann::ann(
         const ann& mommy,
-        const ann& daddy,
-        const vector<int>& n_p_r,
-        const long double& a )
-    :nodes_per_layer(n_p_r),
-    //graph(mommy.graph),
-    alpha(a)
+        const ann& daddy)
+    :nodes_per_layer(mommy.nodes_per_layer),
+    graph(mommy.graph),
+    alpha(mommy.alpha)
     
 
 {

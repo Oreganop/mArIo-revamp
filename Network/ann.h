@@ -22,12 +22,13 @@ class ann
             long double delta;
             long double dummy;
         };
-        vector<int>nodes_per_layer;
+
+    protected:
         // nodes_per_layer ends up defining the number of nodes in a given layer (wow, amirite)
+        vector<int>nodes_per_layer;
         
-        // ANN :
-        vector<vector<vector<Node>>> graph;
         // graph[ LAYER_NUM ][ LAYER_NUM.node_A ][ LAYER_NUM+1.node_B ] = Weight from node_A to node_B
+        vector<vector<vector<Node>>> graph;
         
         long double alpha;
 
@@ -39,9 +40,7 @@ class ann
             );
         ann( 
                 const ann& mommy,  /* Mom's ANN */
-                const ann& daddy,  /* Dad's ANN */
-                const vector<int>&nodes_per_layer,            /* structre of the ANN's */
-                const long double& alpha
+                const ann& daddy   /* Dad's ANN */
             );
         ann() {};
         ~ann();

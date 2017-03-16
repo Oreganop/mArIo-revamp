@@ -50,17 +50,16 @@ Agent::Agent(int& b, string fn, string ln, vector<int>& s, long double a)
         born(b),fitness(0),name_f(fn),name_l(ln), brain(s, NULL, a)
 {
 }
-/*
+
 Agent::Agent(int& d, string fn, string ln, Agent& mommy, Agent& daddy)
     : 
         born(d),
         fitness(0),
         name_f(fn),
         name_l(ln),
-        brain(mommy, )// is done in a "sexier" way below
+        brain(mommy.brain, daddy.brain)// is done in a "sexier" way below
 {
 }
-*/
 
 void GA:: run()
 {
