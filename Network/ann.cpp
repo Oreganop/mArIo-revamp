@@ -45,7 +45,10 @@ ann::ann(const vector<int>& structure, const vector<long double>* weights, const
 
 
 
-ann::ann( vector<vector<vector<Node>>>& mommy, vector<vector<vector<Node>>>& daddy, vector<int>n_p_r)
+ann::ann(
+        vector<vector<vector<Node>>>& mommy,
+        vector<vector<vector<Node>>>& daddy,
+        vector<int>n_p_r )
     :nodes_per_layer(n_p_r),
 {
 }

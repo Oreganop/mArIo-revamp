@@ -45,13 +45,13 @@ GA:: ~GA()
 }
 
 
-Agent::Agent(int& b, string fn, string ln, vector<int>& s, bool r, long double a)
+Agent::Agent(int& b, string fn, string ln, vector<int>& s, vector<long double>* w , long double a)
     :
         born(b),
         fitness(0),
         name_f(fn),
         name_l(ln),
-        brain(s, r, a)
+        brain(s, w, a)
 {
 }
 
@@ -60,8 +60,8 @@ Agent::Agent(int& d, string fn, string ln, Agent& mommy, Agent& daddy)
         born(d),
         fitness(0),
         name_f(fn),
-        name_l(ln)
-        // brain() is done in a "sexier" way below
+        name_l(ln),
+        brain() //  is done in a "sexier" way below
 {
 }
 

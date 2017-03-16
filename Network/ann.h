@@ -25,23 +25,27 @@ class ann
         vector<int>nodes_per_layer;
         // nodes_per_layer ends up defining the number of nodes in a given layer (wow, amirite)
         
+        // ANN :
         vector<vector<vector<Node>>> graph;
-        /* 
-           Vector[ Identify Layer]  *(ie. input, hidden1, hidden2... hiddenN, output)
-                    |
-                    -> Node [ Identify i ]   *(ie. FROM which node. Path from i TO j)
-                                |
-                                -> Node[ Identify j ]   *(ie. TO which node. j FROM i)
-          
-        */
-         long double alpha;
+        // graph[ LAYER_NUM ][ LAYER_NUM.node_A ][ LAYER_NUM+1.node_B ] = Weight from node_A to node_B
+        
+        long double alpha;
 
         // helpful functions
-        int sometimes_negative();
-        long double random_weight();
+        int sometimes_negative();    /* Returns random (+ | -) */
+        long double random_weight(); /* Get random value 0 <-> 1 */
 
     public:
-        ann(const vector<int>& structure, const vector<long double>* weights, const long double& alpha);
+        ann(
+                const vector<int>& structure,       /* Defines the size of each layer */
+                const vector<long double>* weights, /* NULL for random weights */
+                const long double& alpha            /* Alpha value for calculations */
+            );
+        ann( 
+                vector<vector<vector<Node>>>& mommy,  /* Mom's ANN */
+                vector<vector<vector<Node>>>& daddy,  /* Dad's ANN */
+                vector<int>nodes_per_layer            /* structre of the ANN's */
+            );
         ann() {};
         ~ann();
 
