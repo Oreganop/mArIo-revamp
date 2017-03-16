@@ -45,25 +45,22 @@ GA:: ~GA()
 }
 
 
-Agent::Agent(int& b, string fn, string ln, vector<int>& s, vector<long double>* w , long double a)
+Agent::Agent(int& b, string fn, string ln, vector<int>& s, long double a)
     :
-        born(b),
-        fitness(0),
-        name_f(fn),
-        name_l(ln),
-        brain(s, w, a)
+        born(b),fitness(0),name_f(fn),name_l(ln), brain(s, NULL, a)
 {
 }
-
+/*
 Agent::Agent(int& d, string fn, string ln, Agent& mommy, Agent& daddy)
     : 
         born(d),
         fitness(0),
         name_f(fn),
         name_l(ln),
-        brain() //  is done in a "sexier" way below
+        brain(mommy, )// is done in a "sexier" way below
 {
 }
+*/
 
 void GA:: run()
 {
@@ -94,7 +91,7 @@ void GA:: populate()
                         //agent_counter, TODO maybe? -- Garrett
                         ((use_names) ? names_f.front() : string("Agent#")),
                         ((use_names) ? names_l.front() : string(to_string(agent_counter))),
-                        nodes_per_layer, /*yes random*/ NULL, .01
+                        nodes_per_layer, .01
                     ));
             if(use_names)
             {

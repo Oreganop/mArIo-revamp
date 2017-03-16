@@ -19,8 +19,8 @@ class Agent{
     protected:
         ann brain;
     public:
-        Agent(int& date_born, string first, string last, vector<int>& structure, vector<long double>* w, long double a);
-        Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy);
+        Agent(int& date_born, string first, string last, vector<int>& structure, long double a);
+        //Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy);
 
         ~Agent(){/*cout<< "d A\n";*/};
 

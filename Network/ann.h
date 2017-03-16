@@ -4,10 +4,10 @@
 #ifndef ANN_H
 #define ANN_H
 #include<fstream>
-#include<cmath>
 #include<vector>
 #include<iostream>
 #include<iomanip>      // std::setprecision
+#include"functions.h"
 
 using namespace std;
 
@@ -31,10 +31,6 @@ class ann
         
         long double alpha;
 
-        // helpful functions
-        int sometimes_negative();    /* Returns random (+ | -) */
-        long double random_weight(); /* Get random value 0 <-> 1 */
-
     public:
         ann(
                 const vector<int>& structure,       /* Defines the size of each layer */
@@ -42,9 +38,10 @@ class ann
                 const long double& alpha            /* Alpha value for calculations */
             );
         ann( 
-                vector<vector<vector<Node>>>& mommy,  /* Mom's ANN */
-                vector<vector<vector<Node>>>& daddy,  /* Dad's ANN */
-                vector<int>nodes_per_layer            /* structre of the ANN's */
+                const ann& mommy,  /* Mom's ANN */
+                const ann& daddy,  /* Dad's ANN */
+                const vector<int>&nodes_per_layer,            /* structre of the ANN's */
+                const long double& alpha
             );
         ann() {};
         ~ann();

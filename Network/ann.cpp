@@ -46,10 +46,15 @@ ann::ann(const vector<int>& structure, const vector<long double>* weights, const
 
 
 ann::ann(
-        vector<vector<vector<Node>>>& mommy,
-        vector<vector<vector<Node>>>& daddy,
-        vector<int>n_p_r )
+        const ann& mommy,
+        const ann& daddy,
+        const vector<int>& n_p_r,
+        const long double& a )
     :nodes_per_layer(n_p_r),
+    //graph(mommy.graph),
+    alpha(a)
+    
+
 {
 }
 
@@ -78,16 +83,6 @@ void ann::printWeights(int precision)
         if(layer < nodes_per_layer.size()-2)
             cout << "\t";
     }
-}
-
-int ann:: sometimes_negative()
-{
-    return (rand()%2 == 0)?-1:1;
-}
-
-long double ann:: random_weight()
-{
-    return drand48() * (long double) sometimes_negative();
 }
 
 
