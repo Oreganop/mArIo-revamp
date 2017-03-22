@@ -39,6 +39,28 @@ int main(int argc, char** argv)
         nodes_per_layer.push_back(atoi(argv[i]));
         cout << nodes_per_layer.back() << endl;
     }
+
+
     GA genetics(num_children+num_parents, num_parents, nodes_per_layer, string(argv[3]));
+
+    /*
+    string input;
+    cout<< "Observe default file? (Type `Yes`/`ctr-d` or type path/to/obs_file.)" << endl;
+    cin>> input;
+
+
+    if( (input == "yes") | (input == "Yes") |(input == "y") |(input == "YES") |(input == ""))
+    { 
+        genetics.observe_from(input);
+    }
+
+    cout<< "Output to default file? (Type `Yes`/`ctr-d` or type path/to/output_file.)" << endl;
+    cin>> input;
+    if( (input == "yes") | (input == "Yes") |(input == "y") |(input == "YES") |(input == ""))
+    { 
+        genetics.reactions_to(input);
+    }
+
+    */
     genetics.run();
 }

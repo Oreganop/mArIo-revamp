@@ -20,7 +20,7 @@ class Agent{
         ann brain;
     public:
         Agent(int& date_born, string first, string last, vector<int>& structure, long double a);
-        Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy);
+        Agent(int& date_born, string first, string last, Agent& mommy, Agent& daddy, const int mutation_rate);
 
         ~Agent(){/*cout<< "d A\n";*/};
 
@@ -44,6 +44,11 @@ class GA
         deque<string> names_f; //Last names
         deque<string> names_l; //Fist names
         bool use_names;
+
+
+        bool just_dead;
+        string in_file;
+        string out_file;
 
         const int num_parents;
 
@@ -69,6 +74,11 @@ class GA
         GA(const int& pop, const int& p_pop, const vector<int>& layers, const string& name_file);
         GA(const string& save_file);
         ~GA();
+
+        // Init functions
+        void observe_from(const string& obs);
+        void reactions_to(const string& react);
+
         void run();
 };
 bool comp(Agent* i, Agent* j);

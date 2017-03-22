@@ -23,12 +23,11 @@ $(SAVES_DIR):
 	mkdir Saves
 	mkdir Saves/cur
 
-$(EXEC): $(OBJ)/driver.o $(OBJ)/ga.o $(OBJ)/ann.o $(OBJ)/functions.o
+$(EXEC): $(OBJ)/driver.o $(OBJ)/ga.o $(OBJ)/ann.o 
 	$(CXX) $(CXX_FLAGS) -o $(EXEC) \
 		$(OBJ)/driver.o \
 		$(OBJ)/ga.o \
 	    $(OBJ)/ann.o \
- 		$(OBJ)/functions.o \
 		$(LIBS)
 
 $(OBJ)/driver.o: $(GA)/driver.cpp $(GA)/ga.h
@@ -42,10 +41,6 @@ $(OBJ)/ga.o: $(GA)/ga.cpp $(GA)/ga.h $(ANN)/ann.h
 $(OBJ)/ann.o: $(ANN)/ann.cpp $(ANN)/ann.h $(ANN)/functions.h
 	$(CXX) $(CXX_FLAGS) -c -o $@ \
 		$(ANN)/ann.cpp 
-
-$(OBJ)/functions.o: $(ANN)/functions.cpp $(ANN)/functions.h 
-	$(CXX) $(CXX_FLAGS) -c -o $@ \
-		$(ANN)/functions.cpp 
 
 clean:
 	rm -rf $(OBJ) $(EXEC)
