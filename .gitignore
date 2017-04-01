@@ -4,3 +4,4 @@ genetics
 Network/input/
 Network/tests/
 *.o
+*.brain

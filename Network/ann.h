@@ -62,6 +62,9 @@ class ann
         ann( 
                 const ann& mommy   /* Mom's ANN */,
                 const ann& daddy   /* Dad's ANN */,
+                int& mommy_genes    /* Decide which Parent name to use*/,
+                int& daddy_genes    /* Decide which Parent name to use*/,
+                int& mutant_genes    /* for stats*/,
                 const int mutation_rate /* Mutation happens 1:mutation_rate of the time*/
             );
         ann() {};

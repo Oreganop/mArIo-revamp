@@ -47,10 +47,14 @@ ann::ann(const vector<int>& structure, vector<long double> weights, const long d
 
 
 
-ann::ann(const ann& mommy, const ann& daddy, const int mutation_rate)
+ann::ann(const ann& mommy,
+        const ann& daddy,
+        int& mommy_genes    /* Decide which Parent name to use*/,
+        int& daddy_genes    /* Decide which Parent name to use*/,
+        int& mutant_genes    /* for stats*/,
+        const int mutation_rate)
     :
         nodes_per_layer(mommy.nodes_per_layer),
-        //graph(mommy.graph),
         alpha(mommy.alpha)
 {
     for(unsigned int i=0; i < nodes_per_layer.size(); i++)
@@ -61,6 +65,7 @@ ann::ann(const ann& mommy, const ann& daddy, const int mutation_rate)
 
         bool parent_chooser = rand() % 2; // If (parent_chooser == 1) Pick Mom genes until pivot. else vice versa
         int splice_pivot = rand() % nodes_per_layer[i]; // Pivot point. 
+        //cout << "--" << splice_pivot;
 
         for( int y=0; y<num_nodes;y++)
         {
@@ -70,10 +75,23 @@ ann::ann(const ann& mommy, const ann& daddy, const int mutation_rate)
                 {
                     long double weight;
 
-                    if( rand() % mutation_rate == 0 )
+                    if( rand() % mutation_rate == 0 ){
                         weight = random_weight()/(long double)2; // 1/mutation_rate of the time, make new random gene
+                        mutant_genes++;
+                    }
                     else
-                        weight = j<splice_pivot && parent_chooser? mommy.graph[i][y][j].weight: daddy.graph[i][y][j].weight;
+                    {
+                        if( (y<splice_pivot) == parent_chooser ) {
+                            weight = mommy.graph[i][y][j].weight;
+                            mommy_genes++;
+
+                        }
+                        else {
+                            weight = daddy.graph[i][y][j].weight;
+                            daddy_genes++;
+                        }
+                    }
+                         
 
                     graph[ /*x*/ i ][ y ].push_back( Node{ weight, 0, 0, 0, alpha});
                 }
