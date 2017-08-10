@@ -416,6 +416,13 @@ void GA:: evaluate()
 void GA:: kill_off()
 {
     random_shuffle(brains.begin(), brains.end());
+    for(int i=0; i<brains.size(); i++)
+    {
+        if(brains[i])
+            cout << i << " exists.\n";
+        else
+            cout << i << " doesn't exists.\n";
+    }
     sort(brains.begin(), brains.end(), comp);
     for(;cur_pop>num_parents; cur_pop--)
     {
